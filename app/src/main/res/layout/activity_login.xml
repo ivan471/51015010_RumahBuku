@@ -8,18 +8,53 @@
     android:orientation="vertical"
     android:layout_margin="14dp"
     tools:context="com.example.user.rumahbuku.LoginActivity">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="100dp" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:textStyle="bold"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        android:layout_marginBottom="5dp"/>
-
-    <Button
+        android:text="Sign-In"
+        android:textSize="32sp"
+        android:gravity="center"/>
+    <EditText
+        android:id="@+id/ethp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:text="Sign In"/>
+        android:hint="No.Hp"
+        android:drawableLeft="@drawable/ic_phone_black_24dp"
+        android:textAlignment="center"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"/>
+    <EditText
+        android:id="@+id/etpass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:drawableLeft="@drawable/ic_lock_black_24dp"
+        android:inputType="textPassword"
+        android:textAlignment="center"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        />
+    <Button
+        android:id="@+id/btnlogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Login"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="Jika belum punya akun"/>
+    <TextView
+        android:id="@+id/tvregister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:textStyle="italic"
+        android:textColor="@android:color/holo_blue_light"
+        android:text="Klik Here!"/>
 </LinearLayout>

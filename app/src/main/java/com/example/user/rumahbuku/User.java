@@ -3,6 +3,9 @@ package com.example.user.rumahbuku;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 /**
  * Created by USER on 26-Jan-18.
  */
@@ -11,7 +14,33 @@ public class User implements Parcelable {
     private String id;
     private String nama;
     private String password;
-    private String email;
+    private String telepon;
+    private String namalib;
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference userRef = database.getReference("users");
+
+    public  void register(){
+
+        userRef.child(this.telepon).setValue(this);
+    }
+
+    public String getNamalib() {
+        return namalib;
+    }
+
+    public void setNamalib(String namalib) {
+        this.namalib = namalib;
+    }
+
+
+    public String getTelepon() {
+        return telepon;
+    }
+
+    public void setTelepon(String telepon) {
+        this.telepon = telepon;
+    }
 
     public String getId() {
         return id;
@@ -37,12 +66,7 @@ public class User implements Parcelable {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public User() {
     }
 
     @Override
@@ -52,23 +76,18 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.id);
         dest.writeString(this.nama);
-        dest.writeString(this.password);
-        dest.writeString(this.email);
-    }
-
-    public User() {
+        dest.writeString(this.telepon);
+        dest.writeString(this.namalib);
     }
 
     protected User(Parcel in) {
-        this.id = in.readString();
         this.nama = in.readString();
-        this.password = in.readString();
-        this.email = in.readString();
+        this.telepon = in.readString();
+        this.namalib = in.readString();
     }
 
-    public static final Parcelable.Creator<User> CREATOR = new Parcelable.Creator<User>() {
+    public static final Creator<User> CREATOR = new Creator<User>() {
         @Override
         public User createFromParcel(Parcel source) {
             return new User(source);
