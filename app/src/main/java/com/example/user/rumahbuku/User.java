@@ -20,7 +20,7 @@ public class User implements Parcelable {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference userRef = database.getReference("users");
 
-    public  void register(){
+    public void register(){
 
         userRef.child(this.telepon).setValue(this);
     }
