@@ -7,18 +7,24 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
     User user;
     SharedPreferences mylocaldata;
+    FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mylocaldata = getSharedPreferences("mylocaldata", MODE_PRIVATE);
         user = getIntent().getParcelableExtra("user");
-        if ( user == null ){
-            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(intent);
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        //if getCurrentUser does not returns null
+        if(firebaseAuth.getCurrentUser() == null){
+            finish();
+            startActivity(new Intent(this, LoginActivity.class));
         }
     }
     @Override

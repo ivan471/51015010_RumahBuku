@@ -13,16 +13,16 @@ import com.google.firebase.database.FirebaseDatabase;
 public class User implements Parcelable {
     private String id;
     private String nama;
-    private String password;
+    private String email;
     private String telepon;
     private String namalib;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference userRef = database.getReference("users");
+    public String getEmail() {
+        return email;
+    }
 
-    public void register(){
-
-        userRef.child(this.telepon).setValue(this);
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getNamalib() {
@@ -58,14 +58,6 @@ public class User implements Parcelable {
         this.nama = nama;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public User() {
     }
 
@@ -76,13 +68,17 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
         dest.writeString(this.nama);
+        dest.writeString(this.email);
         dest.writeString(this.telepon);
         dest.writeString(this.namalib);
     }
 
     protected User(Parcel in) {
+        this.id = in.readString();
         this.nama = in.readString();
+        this.email = in.readString();
         this.telepon = in.readString();
         this.namalib = in.readString();
     }

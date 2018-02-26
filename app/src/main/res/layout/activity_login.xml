@@ -16,15 +16,16 @@
         android:layout_height="wrap_content"
         android:text="Sign-In"
         android:textSize="32sp"
+        android:layout_marginBottom="16dp"
         android:gravity="center"/>
     <EditText
-        android:id="@+id/ethp"
+        android:id="@+id/etemail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="No.Hp"
-        android:drawableLeft="@drawable/ic_phone_black_24dp"
+        android:hint="Email"
+        android:drawableLeft="@drawable/ic_email_black_24dp"
         android:gravity="center"
-        android:inputType="number"
+        android:inputType="textEmailAddress"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"/>
 
@@ -64,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="38dp"
         android:text="Jika belum punya akun"/>
     <TextView
         android:id="@+id/tvregister"
