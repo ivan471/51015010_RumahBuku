@@ -68,7 +68,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this,"Please enter No.Hp",Toast.LENGTH_LONG).show();
                     return;
                 }else if (TextUtils.isEmpty(etnama.getText().toString())){
-                    Toast.makeText(RegisterActivity.this,"Please enter email",Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this,"Please enter nama",Toast.LENGTH_LONG).show();
                     return;
                 }else{
                     progressDialog.setMessage("Registering Please Wait...");
@@ -85,6 +85,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         user.setNamalib(lib.getText().toString());
                                         user.setTelepon(nohp.getText().toString());
                                         userRef.child(userid).setValue(user);
+                                        Toast.makeText(RegisterActivity.this,"Registration Success",Toast.LENGTH_LONG).show();
                                         finish();
                                         startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                     }else{

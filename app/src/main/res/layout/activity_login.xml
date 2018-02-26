@@ -10,7 +10,8 @@
     tools:context="com.example.user.rumahbuku.LoginActivity">
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_height="120dp"
+        android:src="@drawable/ai"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
