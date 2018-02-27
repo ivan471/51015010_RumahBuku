@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             finish();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }else{
-                            Toast.makeText(LoginActivity.this,"Registration Error,E-Mail Sudah Digunakan",Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this,"Login Gagal Email Atau Password Salah",Toast.LENGTH_LONG).show();
                             progressDialog.dismiss();
                         }
                     }

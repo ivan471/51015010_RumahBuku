@@ -20,8 +20,6 @@ public class MainActivity extends AppCompatActivity {
         mylocaldata = getSharedPreferences("mylocaldata", MODE_PRIVATE);
         user = getIntent().getParcelableExtra("user");
         firebaseAuth = FirebaseAuth.getInstance();
-
-        //if getCurrentUser does not returns null
         if(firebaseAuth.getCurrentUser() == null){
             finish();
             startActivity(new Intent(this, LoginActivity.class));
@@ -34,10 +32,14 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menuLogout) {
+        if (item.getItemId() == R.id.menuuploadbuku) {
+            Intent intent = new Intent(MainActivity.this, UploadBukuActivity.class);
+            intent.putExtra("user",user);
+            startActivity(intent);
+        }else if (item.getItemId()==R.id.menuLogout){
             firebaseAuth.signOut();
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
         }
         return true;
     }
