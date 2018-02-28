@@ -35,16 +35,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     SharedPreferences mylocaldata;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference userRef = database.getReference("users");
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String Name = "nameuser";
+    public static final String Phone = "nohp";
+    public static final String Lib = "namalib";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         firebaseAuth = FirebaseAuth.getInstance();
-        if(firebaseAuth.getCurrentUser() != null){
-            finish();
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        }
         editTextEmail = (EditText) findViewById(R.id.etemail);
         editTextPassword = (EditText) findViewById(R.id.etpass);
         buttonSignIn = (CardView) findViewById(R.id.btnlogin);
@@ -80,15 +80,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             userRef.child(userid).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    mylocaldata = getSharedPreferences("mylocaldata", MODE_PRIVATE);
+//                                    mylocaldata = getSharedPreferences("mylocaldata", MODE_PRIVATE);
+                                    mylocaldata = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
                                     User user = new User();
                                     if( dataSnapshot.exists() ){
                                         user.setNama(dataSnapshot.child("nama").getValue(String.class) );
-                                        user.setEmail(dataSnapshot.child("email").getValue(String.class) );
                                         user.setTelepon(dataSnapshot.child("telepon").getValue(String.class) );
                                         user.setNamalib(dataSnapshot.child("namalib").getValue(String.class) );
                                         SharedPreferences.Editor editor = mylocaldata.edit();
-                                        editor.putString("uid", user.getTelepon() );
+                                        editor.putString(Name,user.getNama() );
+                                        editor.putString(Phone,user.getTelepon() );
+                                        editor.putString(Lib,user.getNamalib() );
                                         editor.apply();
                                         Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                                         intent.putExtra("user",user);

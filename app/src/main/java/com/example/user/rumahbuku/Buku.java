@@ -76,10 +76,12 @@ public class Buku implements Parcelable {
 
     public Buku() {
     }
-    public Buku(String judul_buku, String penerbit_buku, String penulis_buku, String url) {
+    public Buku(String judul_buku,String penerbit_buku,String penulis_buku,String url,String namauser,String namalib) {
         this.judul_buku=judul_buku;
         this.penerbit_buku=penerbit_buku;
         this.penulis_buku=penulis_buku;
+        this.namalib = namalib;
+        this.namauser = namauser;
         this.url = url;
     }
 

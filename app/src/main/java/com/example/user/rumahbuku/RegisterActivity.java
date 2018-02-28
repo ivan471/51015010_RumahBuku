@@ -87,7 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
                                         userRef.child(userid).setValue(user);
                                         Toast.makeText(RegisterActivity.this,"Registration Success",Toast.LENGTH_LONG).show();
                                         finish();
-                                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                                     }else{
                                         //display some message here
                                         Toast.makeText(RegisterActivity.this,"Registration Error,E-Mail Sudah Digunakan",Toast.LENGTH_LONG).show();

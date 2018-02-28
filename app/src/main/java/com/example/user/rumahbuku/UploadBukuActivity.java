@@ -34,28 +34,29 @@ public class UploadBukuActivity extends AppCompatActivity implements View.OnClic
     private ImageView imageView;
     private EditText etjudul,penerbit,penulis;
     private CardView btnupload;
-    //firebase objects
     private StorageReference storageReference;
     private DatabaseReference mDatabase;
     User user;
     SharedPreferences mylocaldata;
-    String namauser,namalib;
+    String users,libs;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String Name = "nameuser";
+    public static final String Lib = "namalib";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload_buku);
-
-        mylocaldata = getSharedPreferences("mylocaldata", MODE_PRIVATE);
-        user = getIntent().getParcelableExtra("user");
         imageView = (ImageView) findViewById(R.id.imageview);
         etjudul = (EditText) findViewById(R.id.etjudul);
         penerbit = (EditText) findViewById(R.id.etpenerbit);
         penulis = (EditText) findViewById(R.id.etpenulis);
         btnupload = (CardView) findViewById(R.id.btnupload);
+        mylocaldata = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
+        users= mylocaldata.getString(Name,"");
+        libs= mylocaldata.getString(Lib,"");
+        user = getIntent().getParcelableExtra("user");
         storageReference = FirebaseStorage.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
-        namauser = user.getNama();
-        namalib = user.getNamalib();
         imageView.setOnClickListener(this);
         btnupload.setOnClickListener(this);
     }
@@ -70,9 +71,11 @@ public class UploadBukuActivity extends AppCompatActivity implements View.OnClic
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "File Uploaded ", Toast.LENGTH_LONG).show();
-                            Buku buku = new Buku(etjudul.getText().toString().trim(),penerbit.getText().toString().trim(),penulis.getText().toString().trim(), taskSnapshot.getDownloadUrl().toString());
+                            Buku buku = new Buku(etjudul.getText().toString().trim(),penerbit.getText().toString().trim(),penulis.getText().toString().trim(), taskSnapshot.getDownloadUrl().toString(),users,libs);
                             String uploadId = mDatabase.push().getKey();
                             mDatabase.child(uploadId).setValue(buku);
+                            finish();
+                            startActivity(new Intent(UploadBukuActivity.this, MainActivity.class));
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -92,6 +95,7 @@ public class UploadBukuActivity extends AppCompatActivity implements View.OnClic
         } else {
         }
     }
+
     public String getFileExtension(Uri uri) {
         ContentResolver cR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();

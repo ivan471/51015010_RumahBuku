@@ -13,17 +13,28 @@ public class MainActivity extends AppCompatActivity {
     User user;
     SharedPreferences mylocaldata;
     FirebaseAuth firebaseAuth;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String Name = "nameuser";
+    public static final String Phone = "nohp";
+    public static final String Lib = "namalib";
+    public String users,libs,hp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mylocaldata = getSharedPreferences("mylocaldata", MODE_PRIVATE);
+        mylocaldata = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
         user = getIntent().getParcelableExtra("user");
         firebaseAuth = FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser() == null){
             finish();
             startActivity(new Intent(this, LoginActivity.class));
         }
+        loaddata();
+    }
+    public void loaddata(){
+        users= mylocaldata.getString(Name,"");
+        libs= mylocaldata.getString(Lib,"");
+        hp= mylocaldata.getString(Phone,"");
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
