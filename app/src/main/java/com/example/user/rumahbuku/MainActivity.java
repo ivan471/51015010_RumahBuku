@@ -88,8 +88,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menuuploadbuku) {
             Intent intent = new Intent(MainActivity.this, UploadBukuActivity.class);
-            intent.putExtra("user",user);
+            intent.putExtra("user", user);
             startActivity(intent);
+        }else if (item.getItemId()==R.id.menuprofil) {
+            startActivity(new Intent(MainActivity.this, ProfilActivity.class));
+        }else if (item.getItemId()==R.id.menuhome){
+            startActivity(new Intent(MainActivity.this, MainActivity.class));
         }else if (item.getItemId()==R.id.menuLogout){
             firebaseAuth.signOut();
             finish();

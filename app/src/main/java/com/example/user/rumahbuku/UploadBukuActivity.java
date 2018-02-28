@@ -11,6 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -40,6 +43,7 @@ public class UploadBukuActivity extends AppCompatActivity implements View.OnClic
     private DatabaseReference mDatabase;
     User user;
     SharedPreferences mylocaldata;
+    FirebaseAuth firebaseAuth;
     String users,libs;
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String Name = "nameuser";
@@ -54,6 +58,7 @@ public class UploadBukuActivity extends AppCompatActivity implements View.OnClic
         penulis = (EditText) findViewById(R.id.etpenulis);
         btnpilih = (Button) findViewById(R.id.btnpilih);
         btnupload = (CardView) findViewById(R.id.btnupload);
+        firebaseAuth = FirebaseAuth.getInstance();
         mylocaldata = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
         users= mylocaldata.getString(Name,"");
         libs= mylocaldata.getString(Lib,"");
@@ -131,5 +136,26 @@ public class UploadBukuActivity extends AppCompatActivity implements View.OnClic
             uploadFile();
         }
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.menuuploadbuku) {
+            Intent intent = new Intent(UploadBukuActivity.this, UploadBukuActivity.class);
+            intent.putExtra("user", user);
+            startActivity(intent);
+        }else if (item.getItemId()==R.id.menuprofil) {
+            startActivity(new Intent(UploadBukuActivity.this, ProfilActivity.class));
+        }else if (item.getItemId()==R.id.menuhome){
+            startActivity(new Intent(UploadBukuActivity.this, MainActivity.class));
+        }else if (item.getItemId()==R.id.menuLogout){
+            firebaseAuth.signOut();
+            finish();
+            startActivity(new Intent(UploadBukuActivity.this, LoginActivity.class));
+        }
+        return true;
+    }
 }

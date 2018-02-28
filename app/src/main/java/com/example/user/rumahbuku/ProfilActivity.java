@@ -23,15 +23,17 @@ public class ProfilActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil);
+        firebaseAuth = FirebaseAuth.getInstance();
         mylocaldata = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
         tvnama=(TextView)findViewById(R.id.tvnama);
         tvper=(TextView)findViewById(R.id.tvper);
         tvhp=(TextView)findViewById(R.id.tvhp);
         users=mylocaldata.getString(Name,"");
         libs=mylocaldata.getString(Lib,"");
+        hp=mylocaldata.getString(Phone,"");
         tvnama.setText(users);
         tvper.setText(libs);
-        tvhp.setText(Phone);
+        tvhp.setText(hp);
 
     }
     @Override
@@ -46,6 +48,9 @@ public class ProfilActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }else if (item.getItemId()==R.id.menuprofil) {
+            Intent intent = new Intent(ProfilActivity.this, ProfilActivity.class);
+            startActivity(intent);
+        }else if (item.getItemId()==R.id.menuuploadbuku) {
             Intent intent = new Intent(ProfilActivity.this, UploadBukuActivity.class);
             startActivity(intent);
         }else if (item.getItemId()==R.id.menuLogout){
