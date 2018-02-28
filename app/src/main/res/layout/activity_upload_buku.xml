@@ -35,12 +35,16 @@
         android:hint="Nama Penerbit"
         android:layout_marginBottom="8dp"
         />
+    <Button
+        android:id="@+id/btnpilih"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pilih"/>
     <ImageView
         android:id="@+id/imageview"
         android:layout_gravity="center"
         android:layout_width="250dp"
-        android:layout_height="230dp"
-
+        android:layout_height="190dp"
         />
     <android.support.v7.widget.CardView
         android:layout_width="250dp"

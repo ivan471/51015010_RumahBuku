@@ -1,18 +1,35 @@
 package com.example.user.rumahbuku;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    static FirebaseDatabase database = FirebaseDatabase.getInstance();
+    static DatabaseReference bukuRef = database.getReference("Books");
+    private RecyclerView recyclerView;
+    private List<Buku> bukus;
+    private RecyclerView.Adapter adapter;
     User user;
     SharedPreferences mylocaldata;
     FirebaseAuth firebaseAuth;
+    private ProgressDialog progressDialog;
     public static final String MyPREFERENCES = "MyPrefs" ;
     public static final String Name = "nameuser";
     public static final String Phone = "nohp";
@@ -30,6 +47,40 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, LoginActivity.class));
         }
         loaddata();
+        recyclerView = (RecyclerView) findViewById(R.id.rvbuku);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        progressDialog = new ProgressDialog(this);
+//
+        bukus = new ArrayList<>();
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
+        bukuRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
+
+        //adding an event listener to fetch values
+        bukuRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                //dismissing the progress dialog
+                progressDialog.dismiss();
+
+                //iterating through all the values in database
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Buku buku  = postSnapshot.getValue(Buku.class);
+                    bukus.add(buku);
+                }
+                //creating adapter
+                adapter = new BukuListAdapter(getApplicationContext(), bukus);
+
+                //adding adapter to recyclerview
+                recyclerView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                progressDialog.dismiss();
+            }
+        });
     }
     public void loaddata(){
         users= mylocaldata.getString(Name,"");

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class UploadBukuActivity extends AppCompatActivity implements View.OnClic
     private static final int PICK_IMAGE_REQUEST = 234;
     private Uri filePath;
     private ImageView imageView;
+    private Button btnpilih;
     private EditText etjudul,penerbit,penulis;
     private CardView btnupload;
     private StorageReference storageReference;
@@ -50,6 +52,7 @@ public class UploadBukuActivity extends AppCompatActivity implements View.OnClic
         etjudul = (EditText) findViewById(R.id.etjudul);
         penerbit = (EditText) findViewById(R.id.etpenerbit);
         penulis = (EditText) findViewById(R.id.etpenulis);
+        btnpilih = (Button) findViewById(R.id.btnpilih);
         btnupload = (CardView) findViewById(R.id.btnupload);
         mylocaldata = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
         users= mylocaldata.getString(Name,"");
@@ -57,7 +60,7 @@ public class UploadBukuActivity extends AppCompatActivity implements View.OnClic
         user = getIntent().getParcelableExtra("user");
         storageReference = FirebaseStorage.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
-        imageView.setOnClickListener(this);
+        btnpilih.setOnClickListener(this);
         btnupload.setOnClickListener(this);
     }
     private void uploadFile() {
@@ -122,7 +125,7 @@ public class UploadBukuActivity extends AppCompatActivity implements View.OnClic
     }
     @Override
     public void onClick(View view) {
-        if (view == imageView) {
+        if (view == btnpilih) {
             showFileChooser();
         } else if (view == btnupload) {
             uploadFile();
