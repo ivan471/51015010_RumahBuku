@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".UploadBukuActivity"></activity>
+        <activity android:name=".UploadBukuActivity" />
+        <activity android:name=".ProfilActivity"></activity>
     </application>
 
 </manifest>

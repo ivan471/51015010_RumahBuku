@@ -33,7 +33,6 @@ public class User implements Parcelable {
         this.namalib = namalib;
     }
 
-
     public String getTelepon() {
         return telepon;
     }

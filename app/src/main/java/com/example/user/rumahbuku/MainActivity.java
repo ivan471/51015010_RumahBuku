@@ -51,28 +51,20 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         progressDialog = new ProgressDialog(this);
-//
         bukus = new ArrayList<>();
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
         bukuRef = FirebaseDatabase.getInstance().getReference(Constants.DATABASE_PATH_UPLOADS);
 
-        //adding an event listener to fetch values
         bukuRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                //dismissing the progress dialog
                 progressDialog.dismiss();
-
-                //iterating through all the values in database
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     Buku buku  = postSnapshot.getValue(Buku.class);
                     bukus.add(buku);
                 }
-                //creating adapter
                 adapter = new BukuListAdapter(getApplicationContext(), bukus);
-
-                //adding adapter to recyclerview
                 recyclerView.setAdapter(adapter);
             }
 

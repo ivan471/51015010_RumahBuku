@@ -29,7 +29,6 @@ public class RegisterActivity extends AppCompatActivity {
     private CardView register;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
-    TextView test;
     String userid;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -39,10 +38,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         firebaseAuth = FirebaseAuth.getInstance();
-//        if(firebaseAuth.getCurrentUser() != null){
-//            finish();
-//            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//        }
         progressDialog = new ProgressDialog(this);
         etnama=(EditText)findViewById(R.id.etnama);
         e_mail=(EditText)findViewById(R.id.et_email);
@@ -77,7 +72,6 @@ public class RegisterActivity extends AppCompatActivity {
                             .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    //checking if success
                                     if(task.isSuccessful()){
                                         userid = firebaseAuth.getCurrentUser().getUid();
                                         user = new User();
@@ -89,7 +83,6 @@ public class RegisterActivity extends AppCompatActivity {
                                         finish();
                                         startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                                     }else{
-                                        //display some message here
                                         Toast.makeText(RegisterActivity.this,"Registration Error,E-Mail Sudah Digunakan",Toast.LENGTH_LONG).show();
                                     }
                                     progressDialog.dismiss();

@@ -49,10 +49,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         editTextPassword = (EditText) findViewById(R.id.etpass);
         buttonSignIn = (CardView) findViewById(R.id.btnlogin);
         textViewSignup  = (TextView) findViewById(R.id.tvregister);
-
         progressDialog = new ProgressDialog(this);
-
-        //attaching click listener
         buttonSignIn.setOnClickListener(this);
         textViewSignup.setOnClickListener(this);
     }
@@ -69,7 +66,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }else{
         progressDialog.setMessage("Please Wait...");
         progressDialog.show();
-        //logging in the user
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -80,7 +76,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             userRef.child(userid).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-//                                    mylocaldata = getSharedPreferences("mylocaldata", MODE_PRIVATE);
                                     mylocaldata = getSharedPreferences(MyPREFERENCES, MODE_PRIVATE);
                                     User user = new User();
                                     if( dataSnapshot.exists() ){
